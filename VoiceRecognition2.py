@@ -1,12 +1,11 @@
 import pyaudio
 import wave
-#for comparing audio frequency
 import scipy.fftpack as sf
 import scipy.signal as scisig
 import pydub
 import librosa
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import time
 
@@ -34,6 +33,10 @@ def recordAndSave(CHUNK, FORMAT, CHANNELS, RATE, RECORD_SECONDS, WAVE_OUTPUT_FIL
     #creates one audio variable
     #wf.close()
 
+def convertWavToMP3(WAVE_OUTPUT_FILENAME):
+    sound = pydub.AudioSegment.from_wav(WAVE_OUTPUT_FILENAME)
+    sound.export(WAVE_OUTPUT_FILENAME, format="mp3")
+
 def openFileAndAnalyze(WAVE_OUTPUT_FILENAME):
     #data, sampling_frequency = librosa.load('./OurMP3Video.mp3')
     data, sampling_frequency = librosa.load("'./" + WAVE_OUTPUT_FILENAME)
@@ -49,10 +52,6 @@ def openFileAndAnalyze(WAVE_OUTPUT_FILENAME):
     lag = peaks[0] # Choose the first peak as our pitch component lag
     pitch = sampling_frequency / lag  # Transform lag into frequency
     return pitch
-    
-def convertWavToMp3(WAVE_OUTPUT_FILENAME):
-    sound = pydub.AudioSegment.from_wav(WAVE_OUTPUT_FILENAME)
-    sound.export(WAVE_OUTPUT_FILENAME, format="mp3")
 
 def maxFrequency(X, F_sample, Low_cutoff=80, High_cutoff=300):
     M = X.size  # let M be the length of the time series
@@ -87,7 +86,7 @@ print("Recording...\n")
 recordAndSave(CHUNK, FORMAT, CHANNELS, RATE, RECORD_SECONDS, WAVE_OUTPUT_FILENAME)
 time.sleep(2)
 print("Saving as " + WAVE_OUTPUT_FILENAME)
-convertWavToMp3(WAVE_OUTPUT_FILENAME)
+convertWavToMP3(WAVE_OUTPUT_FILENAME)
 pitch = openFileAndAnalyze(WAVE_OUTPUT_FILENAME)
 print(pitch)
 

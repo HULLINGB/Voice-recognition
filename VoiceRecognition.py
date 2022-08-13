@@ -1,14 +1,14 @@
 import pyaudio
 import wave
+#for comparing audio frequency
 import scipy.fftpack as sf
-import numpy as np
 import scipy.signal as scisig
+import pydub
 import librosa
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 import statsmodels.api as sm
 import time
-
 
 
 CHUNK = 1024
@@ -44,7 +44,8 @@ wf.setsampwidth(p.get_sample_size(FORMAT))
 wf.setframerate(RATE)
 wf.writeframes(b''.join(frames))
 #wf.close()
-
+sound = pydub.AudioSegment.from_wav(WAVE_OUTPUT_FILENAME)
+sound.export(WAVE_OUTPUT_FILENAME, format="mp3")
 data, sampling_frequency = librosa.load("'./" + WAVE_OUTPUT_FILENAME)
 #T = 1/sampling_frequency
 N = len(data)
