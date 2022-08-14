@@ -1,6 +1,5 @@
 import pyaudio
 import wave
-#for comparing audio frequency
 import scipy.fftpack as sf
 import scipy.signal as scisig
 import pydub
