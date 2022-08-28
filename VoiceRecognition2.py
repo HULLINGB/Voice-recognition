@@ -10,6 +10,9 @@ import statsmodels.api as sm
 import time
 
 
+def createfile(WAVE_OUTPUT_FILENAME):
+    #create wav file
+
 def recordAndSave(CHUNK, FORMAT, CHANNELS, RATE, RECORD_SECONDS, WAVE_OUTPUT_FILENAME):
     p = pyaudio.PyAudio()
     #this streams input from the mic
